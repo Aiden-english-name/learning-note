@@ -191,6 +191,11 @@ Settings->developer settings->personal access token->generate new token->输入�
 
 
 (2)克隆
+1
+2
+3
+4
+5
 
 
 
