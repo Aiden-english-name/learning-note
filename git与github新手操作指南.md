@@ -60,7 +60,11 @@ git reset --hard HEAD^   一个^表示后退一个版本，两个表示后退两
 
 （3）使用～符合：只能后退
 
-​		 git reset --hard HEAD~3 表示后退三步
+git reset --hard HEAD~3 表示后退三步
+
+
+
+
 
 
 
