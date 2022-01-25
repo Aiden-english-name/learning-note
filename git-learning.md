@@ -222,12 +222,15 @@ git fetch <远程库地址别名> <远程分支名>
 
 团队共创冲突解决
 
-1pull
+1git pull
 
 2进入文件，人为修改
+或者没有冲突
+2git add .//所有文件提交
 
-3add-commit(不加文件名)-push
+3git commit -m "注释"
 
+4git push origin master
 
 
 (4)跨团队协作
@@ -278,8 +281,9 @@ git fetch <远程库地址别名> <远程分支名>
 
 创建新项目->初始化本地库->AS terminal查看身份 git config --list->commit->GIt->Github->Show project on Github->Git->push->选择->push
 
-密钥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	
-
+密钥
+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	
+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
 
 
 (3)抓取操作
