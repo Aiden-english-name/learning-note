@@ -158,7 +158,7 @@ git commit -m " 日志"
 
 注：此时commit不能带文件名
 
-#### 
+
 
 二、远程库操作
 
@@ -200,7 +200,11 @@ Settings->developer settings->personal access token->generate new token->输入�
 
 (3)团队共创
 
-仓库->Settings->Collaborators->输入账号->复制链接，发给那个人->(对方)打开邀请链接，接收邀请->(对方)本地修改，push->(远程库修改拉取到本地库pull)git fetch <远程库地址别名> <远程分支名>
+仓库->Settings->Collaborators->输入账号->复制链接，发给那个人->(对方)打开邀请链接，接收邀请->(对方)本地修改，push->
+
+远程库修改拉取到本地库pull
+
+git fetch <远程库地址别名> <远程分支名>
 
 1把远程内容下载到本地，可以用git checkout origin/master切换远程库这个分支 
 
