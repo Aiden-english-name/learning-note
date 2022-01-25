@@ -302,7 +302,8 @@ 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
 
 补充代码:
 
-ls -la 查看当前目录
+ls -la 查看当前目录，包含隐藏文件
+ls 查看当前目录
 
 cat <文件名> 查看文件内容
 
