@@ -252,6 +252,48 @@ git fetch <远程库地址别名> <远程分支名>
 
 三、android版git操作
 
+（1）本地操作流程
+
+1.创建仓库VCS,enable version control integration->git->ok//相当于命令行的初始化操作
+
+2.菜单栏git->commit(勾选amend commit（追加提交))
+
+3.GIt->Log中间栏右击->new branch创建新分支
+
+4.切回主分支，右击log记录->checkout->master
+
+5.合并分支Git->merge change->选择需要合并的分支dev->merge
+
+6.标记，右击主分支->new tag->输入a1.0
+
+只要启动了VCS，每次提交后做修改，都会有左边绿色的标记，点击，点绿色箭头，就可以看到两者差别，也可以点灰色箭头撤销
+
+在谷歌里搜索most ranked GitHub repo就可以看排行榜靠前的开源项目
+
+或者http://zy2071.com/project-center/#/githubRank	
+
+
+
+（2）AS上推送到远端
+
+创建新项目->初始化本地库->AS terminal查看身份 git config --list->commit->GIt->Github->Show project on Github->Git->push->选择->push
+
+密钥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	
+
+
+
+(3)抓取操作
+
+另一个github账号找到我的主页->folk->code->复制地址->打开AS开始界面->Get From VSC->输入URL->clone
+
+
+
+(4)如果对方的远端库修改了，如何自己的远端库同步
+
+1.删了重新folk
+
+2Git->manage remote->创建远端新别名->OK->Git->pull(远端分支->本地分支upstream)->commit->push(origin)
+
 
 
 补充代码:
