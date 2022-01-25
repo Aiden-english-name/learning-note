@@ -224,6 +224,12 @@ git fetch <远程库地址别名> <远程分支名>
 
 1git pull
 
+问题1:如果git push -u origin master
+更新被拒绝，因为您当前分支的最新提交落后于其对应的远程分支。
+git fetch origin master//下载远程仓库
+git reset --hard origin/master//切换这个版本
+然后可以正常推送
+
 2进入文件，人为修改
 或者没有冲突
 2git add .//所有文件提交
