@@ -202,7 +202,11 @@ Settings->developer settings->personal access token->generate new token->输入�
 
 仓库->Settings->Collaborators->输入账号->复制链接，发给那个人->(对方)打开邀请链接，接收邀请->(对方)本地修改，push->
 
-远程库修改拉取到本地库pull
+远程库修改拉取到本地库
+
+git pull <远程库地址别名> <远程分支名>
+
+或者
 
 git fetch <远程库地址别名> <远程分支名>
 
@@ -212,9 +216,43 @@ git fetch <远程库地址别名> <远程分支名>
 
 3git checkout main切换回来
 
-->git merge origin/master//远程的分支合并过来
+->git merge <远程库地址别名/远程分支名>//远程的分支合并过来
 
-11
+
+
+团队共创冲突解决
+
+1pull
+
+2进入文件，人为修改
+
+3add-commit(不加文件名)-push
+
+
+
+(4)跨团队协作
+
+1给对方共建权限
+
+2接受，点folk，复制仓库
+
+3git clone 地址
+
+4修改本地仓库，提交，推送
+
+5github->pull requests->new pull requests->create pull request->填入标题，说明->create pull requests
+
+对方
+
+1pull requests->点发过来的信息->(可以对话)->commits（看他的提交)&&files changed(审核代码)->没问题回到对话点merge pull request,需要填信息->confirm merge
+
+2git pull origin master
+
+
+
+三、android版git操作
+
+
 
 补充代码:
 
@@ -234,8 +272,3 @@ vim <文本文件> 创建文本文件，进入vim编辑模式,（mac）按Esc,�
 
 tail -n 3 <文件名> 显示文件的末三行
 
-
-
-git diff  <文件名>将工作区的文件和暂存区进行比较
-
-git diff <本地库中某一个历史版本><文件名>
