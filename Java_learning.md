@@ -571,6 +571,18 @@ tom.getClass() == new People().getClass()
 
 ## 第七章	继承、多态、抽象类与接口
 
+### 7.1	类的继承
+
+```java
+class Child extends Parent{}
+```
+
+1. 子类继承父类之后，创建对象的同时会使用子类的构造方法
+2. 子类继承父类之后可以调用父类创建好的属性和方法
+3. 不可以继承多个，但可以多代继承
+
+
+
 ### 7.3	对象类型的转化
 
 #### 7.3.1	向上转型
@@ -627,6 +639,18 @@ public final 返回值类型 方法名(参数列表){
 public final class 类名{}
 //类被final修饰就不能被继承
 ```
+
+### 7.7	多态
+
+- 多态：父类引用指向子类对象，接口引用指向实现类对象
+
+- 多态成员的访问特点
+  - 成员变量
+    - 编译看父类，运行看父类
+  - 成员方法
+    - 编译看父来，运行看子类
+- 多态的使用场景
+  - 作为方法的参数和返回值
 
 ### 7.8	抽象类和接口
 
@@ -830,7 +854,13 @@ public class AnonymousTest
 
  **Throwable**： 有两个重要的子类：Exception（异常）和 Error（错误），二者都是 Java 异常处理的重要子类，各自都包含大量子类。异常和错误的区别是：异常程序本身可以处理，错误是无法处理。
 
+## 第 10 章	字	符	串
 
+### 10.7	字符串生成器
+
+- 使用 StringBuilder 类
+- append(content) 向字符串生成器中追加内容
+- toString() 输出字符串结果
 
 ## 第 11 章	常用类库
 
@@ -867,7 +897,18 @@ public class AnonymousTest
 
 
 
+### 11.2	数字处理
 
+#### 11.2.3	Random 类
+
+```java
+获得Random 类对象
+Random r = new Random();//以当前时间为随机数种
+Random r = new Random(随机数种子);
+```
+
+- public int nextInt() 返回一个随机整数
+- public int nextInt(int n) 返回一个大于等于0，小于n的整数
 
 ## 第 12 章	集合类
 
@@ -991,6 +1032,28 @@ set(int index,Object obj)	将集合中指定索引的元素用该元素替代
 List<E> list = new Arraylist<>();//E为java数据类型
 List<E> list = new Linkedlist<>();
 ```
+
+## 13.2	泛型
+
+### 13.2.1	回顾向上转型与向下转型
+
+### 13.2.2	定义泛型类
+
+class 类名<T>{
+
+​	private T a(T text){
+
+​	}
+
+}
+
+
+
+泛型的作用：
+
+1. 指定之后下面有用到该参数的内容都会被此值替代，只能传这种类型的数据进来使用
+
+2. 避免了数据中转化异常
 
 
 
