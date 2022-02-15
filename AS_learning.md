@@ -173,9 +173,9 @@ protected void onActivityResult(int requestCode,int resultCode,Intent data){
 
 1. 运行状态：看见的活动
 
-1. 暂停状态：被遮挡的活动
-2. 停止状态：完全看不见的活动
-3. 销毁状态：从返回栈中移除的活动
+2. 暂停状态：被遮挡的活动
+3. 停止状态：完全看不见的活动
+4. 销毁状态：从返回栈中移除的活动
 
 
 
@@ -553,7 +553,6 @@ ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,子项
 1. 定义实体类，作为适配器的适配类型 Fruit
 
 ```java
-
 public class Fruit {
 
     private String name;
@@ -656,7 +655,6 @@ public class MainActivity extends AppCompatActivity {
 利用converView，这个参数将加载好的布局进行缓存，以便之后重用，解决重复加载布局问题
 
 ```java
-
 @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //得到Fruit实例
@@ -1019,8 +1017,200 @@ sendBroadcast(intent);
 
 从文件中看存的内容
 
-1. 打开 Device File Explorer(右下角竖着)
+1. 打开 Devisce File Explorer(右下角竖着)
 2. /data/data/包名/share_prefs/
+
+
+
+## 6.5	LitePal 数据库
+
+### 6.5.1	LitePal 简介
+
+项目主页:http:///github.com/LitePalFramework/LitePal //查看最新开源库依赖
+
+```
+implementation 'org.litepal.guolindev:core:3.2.3'
+2022.2.15 开源库崩了，不能用，得导 jar 包
+```
+
+
+
+### 6.5.2	配置 LitePal
+
+1. 导包（依赖不行导jar包）
+2. 配置litepal.xml文件
+
+```java
+//右击main，new，directory命名assets
+//右击assets，new，files命名litepal.xml
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<litepal>
+    <dbname value = "BookStore" ></dbname>//数据库名
+
+    <version value = "2"></version>//版本号，改表，加表，删表后数字加1
+
+    <list>
+       // <mapping class="com.example.test.Book"/>//添加表
+       // <mapping class="com.example.test.Category"/>
+    </list>
+</litepal>
+```
+
+3. AndroidManifest中配置
+
+```java
+android:name="org.litepal.LitePalApplication"
+```
+
+### 
+
+### 6.5.3	创建和升级数据库
+
+1. 写表类，进行封装,如：
+
+```java
+public class Book  {
+  //每个变量相当于表中的一列
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+}
+
+```
+
+2. litepal.xml中写上 <mapping class="com.example.test.Book"/>//添加表
+3. 然后代码中写按钮的点击事件，用LitePal.getDatabase();创建表，只需创建一次
+
+注：表及内容从App Inspection看
+
+添加表
+
+4. 写新表列
+
+```java
+public class Category {
+    private int id;
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+}
+```
+
+5. litepal.xml中写上 <mapping class="com.example.test.Category"/>，版本号加1
+
+
+
+### 6.5.4 	往LitePal 里添加数据
+
+1. 让表继承 LitePalSupport ，才能进行CRUD操作
+2. 设置按钮的点击事件
+
+```
+用表对象设置值，save一下就存储了
+Book book = new Book();
+book.setName("The Da Vinci Code");
+book.setAuthor("Dan Brown");
+book.setPages(456);
+book.setPrice(16.96);
+book.setPress("Unknown");
+book.save();
+```
+
+
+
+### 6.5.5	使用 LitePal 更新数据
+
+第一种，通过对已存储的对象重新save来更新
+
+已存储包括两种，之前save的，和通过查询，查询出来的
+
+```
+Book book = new Book();
+book.setName("The Lost Symbol");
+book.setAuthor("Dan Brown");
+book.setPages(510);
+book.setPrice(19.95);
+book.setPress("Unknown");
+book.save();
+book.setPrice(10.99);
+book.save();
+```
+
+第二种，用book实例，调用set方法设置要更新的值，最后用updateAll执行更新操作，并且指定要更新的对象。
+
+```
+Book book = new Book();
+book.setAuthor("Jiang");
+book.setPrice(15);
+book.updateAll("author = ? and price = ?","Dan Brown","10.99");
+```
+
+表中的数据的默认值
+
+- int 0
+- String null
+- boolean false
+
+要是想把数据更新成默认值
+
+```
+Book book = new Book();
+book.setToDefault("pages");//指定列设置为默认值
+book.updateAll();//updateAll()方法不指定对象，则更新所有值
+```
+
+
+
+### 6.5.6	删除 LitePal 
+
+```
+LitePal.delete(Book.class,22); 删除指定行 （class，id）
+LitePal.deleteAll(Book.class); 删除某表 class
+LitePal.deleteAll(Book.class,"id < ?" , "26");//删除满足条件的全部内容
+
+如果已经存储，调用存储对象的delete()方法就可删掉
+```
+
+
+
+### 6.5.7	使用 LitePal 查询数据
+
+```
+List<Book> books = LitePal.findAll(Book.class);//查询表数据，返回列表类型
+for(Book book : books){
+Log.d(TAG,"author" + book.getAuthor());
+}
+```
+
+- LitePal.findFirst(Book.class)//查询第一行
+- LitePal.findLast(Book.class)//查询最后一行
+- LitePal.select("name","author").find(Book.class);//查询哪几列
+- LitePal.where("pages > ?" , "400").find(Book.class);//查询哪些条件
+- LitePal.order("price (desc降序 asc升序 不写 升序)").find(Book.class)//返回结果的排序
+- LitePal.limit(3).find(Book.class)//指定查询结果的数量,前三条
+- LitePal.limit(3).offset(1).find(Book.class)//偏移1位，2到4条
+- Liteal.的以上查询操作可以嵌套
+
+
+
+待补充。。。。
+
+补充LitePal也可用原生SQL操作
+
+```java
+Cusor c = LitePal.findBySQL()方法来进行原生查询，暂时略。。。
+```
 
 
 
@@ -1132,6 +1322,7 @@ notification的连缀setContentIntent(pendingIntent)
   ```
 
 - 在通道创建的构造方法的第三个参数设置重要程度
+
   - PRIORITY_MIN
   - PRIORITY_LOW
   - PRIORITY_HIGH
@@ -1160,3 +1351,15 @@ Resources res=getResources(); Bitmap bmp=BitmapFactory.decodeResource(res, R.dra
 ## 3.Attempt to invoke virtual method 'void android.widget.Button.setOnClickListener(android.view.View$OnClickListener)'
 
 有可能是忘写setContentView()
+
+
+
+## 4.导入开源库的时候出现 Failed to resolve （开源库）错误
+
+有可能是该开源库钱充少了，已经被服务器删除，这时候要自己导入第三方jar包
+
+1. 去github上找最新的开源库，能找到作者最好，下载jar包
+2. 复制到test ， app ，libs 里
+3. 右击add to Library-->ok
+4. 然后jar包被解析可以展开说明就可以用了
+
